@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from .models import Reducao
+from .models import *
 
-def inserir():
-    p = Reducao(Tipo="Maxima")
-    p.save(force_insert=True)
+class CreateView():
+    R = Reducao.objects.create(Tipo= 'Maximo')
