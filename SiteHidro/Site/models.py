@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+from numpy.lib.tests.test__datasource import teardown
+
 
 class Reducao(models.Model):
     Reducao_ID = models.AutoField(primary_key=True, null=False)
@@ -41,8 +44,8 @@ class Unidade(models.Model):
     Tipo = models.CharField(max_length=20, null=False)
 
 class Serie_Temporal(models.Model):
-    Serie_Temporal_ID = models.IntegerField(primary_key=True, null=False)
-    Data_e_Hora = models.DateTimeField(null=False)
+    Serie_Temporal_ID = models.IntegerField(null=False)
+    Data_e_Hora = models.CharField(max_length=25, null=False)
     Dado = models.CharField(max_length=10, null=False)
     class Meta:
         unique_together = ('Serie_Temporal_ID', 'Data_e_Hora')
@@ -50,7 +53,9 @@ class Serie_Temporal(models.Model):
 class Serie_Original(models.Model):
     Serie_Original_ID = models.AutoField(primary_key=True, null=False)
     Arquivo_Fonte_Data = models.CharField(max_length=20, null=False)
-    Serie_Temporal_ID = models.ForeignKey(Serie_Temporal)
+    Serie_Temporal_ID = models.ManyToManyField(Serie_Temporal,
+                                               through='Serie_Temporal',
+                                               through_fields='Serie_Temporal_')
     Discretizacao_ID = models.ForeignKey(Discretizacao)
     Variavel_ID = models.ForeignKey(Variavel)
     Tipo_Dado_ID = models.ForeignKey(Nivel_Consistencia)
@@ -61,5 +66,7 @@ class Serie_Reduzida(models.Model):
     Serie_Reduzida_ID = models.AutoField(primary_key=True, null=False)
     Reducao_ID = models.ForeignKey(Reducao)
     Discretizacao_ID = models.ForeignKey(Discretizacao)
-    Serie_Temporal_ID = models.ForeignKey(Serie_Temporal)
+    Serie_Temporal_ID = models.ManyToManyField(Serie_Temporal,
+                                               through='Serie_Temporal',
+                                               through_fields='Serie_Temporal_ID')
     Serie_Original_ID = models.ForeignKey(Serie_Original)

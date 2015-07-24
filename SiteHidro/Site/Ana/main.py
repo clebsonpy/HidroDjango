@@ -17,11 +17,11 @@ Datas.Rdata()
 listadado = []
 
 for i in Datas.ListaDatas:
-    dataehora = Serie_Temporal(Data_e_Hora=i[1])
-    dado = Serie_Temporal(Dado=i[0])
-    id = Serie_Temporal(Serie_Temporal_ID=1)
-    listadado.append([id, dataehora, dado])
-print(listadado[1])
+    dados = Serie_Temporal(Serie_Temporal_ID=1, Data_e_Hora=i[1], Dado=i[0])
+    listadado.append(dados)
+
+for i in listadado:
+    print(i)
 Serie_Temporal.objects.bulk_create(listadado)
 '''
 class run():

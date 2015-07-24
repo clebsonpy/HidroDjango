@@ -38,7 +38,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Site',
-    'Site.Ana.main'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,7 +78,7 @@ WSGI_APPLICATION = 'SiteHidro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangogirls',
+        'NAME': 'BancoHidro',
         'USER': 'postgres',
         'PASSWORD': '89635241',
         'HOST': 'localhost',
